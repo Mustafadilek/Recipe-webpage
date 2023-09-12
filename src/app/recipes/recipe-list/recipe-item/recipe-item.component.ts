@@ -9,11 +9,9 @@ import { RecipeService } from '../../recipe.service';
 })
 export class RecipeItemComponent {
 @Input() recipes:Recipe;
+@Input() index: number;
 
    constructor(private recipeService: RecipeService){}
-fetchData(){
-   this.recipeService.recipeSelected.emit(this.recipes);
-   ;
-}
+
 }
 
