@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class RecipeService {
+  recipeChanged= new Subject<Recipe[]>();
  
   private recipes:Recipe[]=[
     new Recipe('A Test Recipe','This is simply a test','https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg',
@@ -26,6 +27,20 @@ export class RecipeService {
    }
    addIngredientsToShoppingList(ingredients:Ingredient[]){
          this.slService.addIngredients(ingredients);
+   }
+   addRecipe(recipe:Recipe){
+     this.recipes.push(recipe);
+     this.recipeChanged.next(this.recipes.slice())
+   }
+   updateRecipe(index: number, newRecipe:Recipe){
+    this.recipes[index]= newRecipe;
+    this.recipeChanged.next(this.recipes.slice())
+
+   }
+   deleteRecipe(index:number){
+    this.recipes.slice(index,1);
+    this.recipeChanged.next(this.recipes.slice());
+
    }
 
 
